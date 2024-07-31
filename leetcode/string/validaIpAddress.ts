@@ -26,6 +26,17 @@ function validateIPv6(ip: string): boolean {
   const ipArr = ip.split(":");
   // Maximum for each block is 4 characters, FFFF is the maximum, so 65535
   for (let i = 0; i < ipArr.length; i++) {
+    // only digits, letters a-f, A-F
+    for (let j = 0; j < ipArr[i].length; j++) {
+      if (
+        (ipArr[i][j] < "0" || ipArr[i][j] > "9") &&
+        (ipArr[i][j] < "a" || ipArr[i][j] > "f") &&
+        (ipArr[i][j] < "A" || ipArr[i][j] > "F")
+      ) {
+        return false;
+      }
+    }
+
     const num = parseInt(ipArr[i], 16);
     if (
       ipArr[i].length === 0 ||
