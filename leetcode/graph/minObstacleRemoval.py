@@ -1,6 +1,7 @@
 from collections import deque
 from typing import List
 
+# Dijkstra
 class Solution:
     def minimumObstacles(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
