@@ -1,32 +1,35 @@
 def MinWindowSubstring(strArr):
-    bigStr, subStr = strArr[0], strArr[1]
-    if subStr == "":
-        return bigStr
-    left, right = 0, 0
-    subStrMap = {}
-    for i in subStr:
-        if i not in subStrMap:
-            subStrMap[i] = 0
-        subStrMap[i] += 1
-    charsAppeared = list(subStrMap.keys())
-    while right < len(bigStr) and len(charsAppeared) > 0:
-        char = bigStr[right]
-        if char in subStrMap:
-            subStrMap[char] -= 1
-            if subStrMap[char] == 0:
-                charsAppeared.remove(char)
+    charMap = {}
+    for c in strArr[1]:
+        charMap[c] = charMap.get(c, 0) + 1
+    left = 0
+    right = 0
+    res = ""
+    minLen = float('inf')
+    count = len(strArr[1])
+    while right < len(strArr[0]):
+        c = strArr[0][right]
+        if c in charMap:
+            charMap[c] -= 1
+            if charMap[c] >= 0:
+                count -= 1
+        while count == 0:
+            if right - left + 1 < minLen:
+                minLen = right - left + 1
+                res = strArr[0][left:right+1]
+            c = strArr[0][left]
+            # Return the character to the map if it is in the map
+            if c in charMap:
+                charMap[c] += 1
+                if charMap[c] > 0:
+                    count += 1
+            left += 1
         right += 1
+    return res
 
-    while left < right:
-        char = bigStr[left]
-        if char in subStrMap: 
-            if subStrMap[char] < 0:
-                subStrMap[char] += 1
-            else:
-                break
-        left += 1
 
-    return bigStr[left:right]
+
+
 
 input = ['ahffaksfajeeubsne', 'jefaa']
 # aksfaje
