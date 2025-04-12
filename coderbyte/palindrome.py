@@ -25,9 +25,14 @@
 #  ***************************************************************/
 
 def PalindromeTwo(str):
-    pattern = r'^[a-zA-Z]+$'
-    editedStr = ''
-    for c in str:
+    
+    # Remove all non-alphanumeric characters and convert to lowercase
+    cleaned_str = ''.join(char.lower() for char in str if char.isalnum())
+    
+    # Check if the cleaned string is equal to its reverse
+    return cleaned_str == cleaned_str[::-1]
 
 input = "Anne, I vote more cars race Rome-to-Vienna"
 print(PalindromeTwo(input))
+print(PalindromeTwo("Noel - sees Leon"))
+print(PalindromeTwo("A war at Tarawa!"))
