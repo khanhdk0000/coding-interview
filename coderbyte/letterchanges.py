@@ -21,32 +21,28 @@
 #  * challenge.                                                   *
 #  *                                                              *
 #  ***************************************************************/
-def encrypt(text,s):
-    result = ""
-    for i in range(len(text)):
-        char = text[i]
-        if char.isalpha():
-            if (char.isupper()):
-                result += chr((ord(char) + s-65) % 26 + 65)
-            else:
-                result += chr((ord(char) + s - 97) % 26 + 97)
-        else:
-            result += char 
-    return result
 
 def letterChanges(strArr):
-    strArr = encrypt(strArr, 1)
-    res = ""
+    result = []
     for c in strArr:
-        if c in ['a', 'e', 'i', 'o', 'u']:
-            res += c.upper()
+        if c.isalpha():
+            letter = c.lower()
+            if letter == 'z':
+                letter = 'a'
+            else:
+                letter = chr(ord(letter) + 1)
+            if letter in 'aeiou':
+                letter = letter.upper()
+            elif letter not in 'aeiou' and c.isupper():
+                letter = letter.upper()
+            result.append(letter)
         else:
-            res += c
-    return res
-
+            result.append(c)
+    return ''.join(result)
 
 
 # keep this function call here 
 # input = "hello*3"
 input = "fun times!"
 print(letterChanges(input))
+print(letterChanges('hello*3'))
