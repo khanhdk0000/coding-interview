@@ -18,23 +18,26 @@
 #  *                                                              *
 #  ***************************************************************/
 def ABCheck(str):
-    count = 0
-    idxa = -1
-    idxb = -1
+    indexA = -1
+    indexB = -1
+
     for i in range(len(str)):
         if str[i] == 'a':
-            idxa = i
-            # print('a', idxa, idxb)
-            if idxb != -1 and abs(idxa-idxb) - 1 == 3:
-                return True
+            indexA = i
         elif str[i] == 'b':
-            idxb = i
-            # print('b', idxa, idxb)
-            if idxa != -1 and abs(idxa-idxb) - 1 == 3:
-                return True
-    return False
+            indexB = i
+
+        # Check if we have found both 'a' and 'b'
+        if indexA != -1 and indexB != -1:
+            # Check if they are separated by exactly 3 characters
+            if abs(indexA - indexB) == 4:
+                return "true"
+    
+    # If we finish the loop without finding a valid pair, return "false"
+    return "false"
 
 
 input = "after badly"
 # input = "Laura sobs"
 print(ABCheck(input))
+print(ABCheck("Laura sobs"))
