@@ -1,26 +1,24 @@
 def QuestionsMarks(strParam):
+  currentQuestionCount = 0
+  currentNum = 0
   foundPair = False
-  num = 0
   startCount = False
-  count = 0
   for c in strParam:
     if c.isdigit():
-      if num == 0:
-        num = int(c)
+      if currentNum == 0:
+        currentNum = int(c)
         startCount = True
       else:
-        if num + int(c) == 10:
+        if currentNum + int(c) == 10:
+          if currentQuestionCount != 3:
+            return "false"
+          currentQuestionCount = 0
           foundPair = True
-        #   startCount = False
-          if count != 3:
-            return False
-          count = 0
-        num = int(c)
+        currentNum = int(c)
     elif c == '?' and startCount:
-      count += 1
-
-  return foundPair
+      currentQuestionCount += 1
+  return 'true' if foundPair else 'false'
 
 # keep this function call here
-input = "9???1???9???1???9" 
+input = "arrb6???4xxbl5???eee5"
 print(QuestionsMarks(input))
