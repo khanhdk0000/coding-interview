@@ -25,34 +25,27 @@
 #  *                                                              *
 #  ***************************************************************/
 
-# function countingMinutesI(str) {
-#     let times = str.split('-');
-
-#     times = times.map(function(currentValue, index, array) {
-#         let pairs = currentValue.split(':');
-#         let time =
-#             (pairs[1][2] === 'a'
-#                 ? parseInt(pairs[0]) % 12
-#                 : (parseInt(pairs[0]) % 12) + 12) *
-#                 60 +
-#             parseInt(pairs[1][0] + pairs[1][1]);
-#         return time;
-#     });
-
-#     let diff = times[1] - times[0];
-#     return diff < 0 ? diff + 1440 : diff;
-}
-
-def countTime(str):
-    div = str.split(':')
-    res = 0
-    hours = 0
-    if div[1][2] == 'a':
-        res = int(div[0]) 
 
 def CountingMinutesI(str):
-    times = str.split('-')
-    time1 = 0
+    start, end = str.split('-')
+    def convertTo24Hour(time):
+        timeStamp, period = time[:-2], time[-2:]
+        hour, minute = map(int, timeStamp.split(':'))
+        if period == 'pm' and hour != 12:
+            hour += 12
+        elif period == 'am' and hour == 12:
+            hour = 0
+        return hour * 60 + minute
 
-input = "12:30pm-12:00am" 
-print(CountingMinutesI(input))
+    # Convert start and end times to 24-hour format
+    startTime = convertTo24Hour(start)
+    endTime = convertTo24Hour(end)
+    print(f"Start Time: {startTime}, End Time: {endTime}")
+    # Calculate the difference in minutes
+    if endTime < startTime:
+        endTime += 24*60
+    return endTime - startTime
+print(CountingMinutesI("12:30pm-12:00am"))  # Output: 690
+print(CountingMinutesI("1:23am-1:08am"))    # Output: 1425
+print(CountingMinutesI("9:00am-10:00am"))  # Output: 60
+print(CountingMinutesI("1:00pm-11:00am"))  # Output: 1320
