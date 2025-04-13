@@ -25,24 +25,22 @@
 #  ***************************************************************/
 
 def LetterCountI(str):
-    words = str.split()
-    bestCount = 0
-    res = ""
-    for w in words:
-        maxWordCount = 0
-        wordMap = {}
-        for c in w:
-            if c not in wordMap:
-                wordMap[c] = 0
-            wordMap[c] += 1
+    words = str.split(' ')
+    maxCount = 0
+    result = '-1'
 
-            if wordMap[c] > 1 and wordMap[c] > maxWordCount:
-                maxWordCount = wordMap[c]
-        if maxWordCount > bestCount:
-            bestCount= maxWordCount
-            res = w
-
-    return res if res != "" else -1
+    for word in words:
+        count = {}
+        for c in word:
+            if c.isalpha():
+                count[c] = count.get(c, 0) + 1
+        maxChar = max(count.values(), default=0)
+        if maxChar > maxCount:
+            maxCount = maxChar
+            result = word
+    return result
 
 input = "No words"
 print(LetterCountI(input))
+print(LetterCountI("Hello apple pie"))
+print(LetterCountI("Today, is the greatest day ever!"))
