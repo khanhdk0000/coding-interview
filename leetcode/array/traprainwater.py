@@ -45,6 +45,22 @@ class Solution:
                 j -= 1
                 
         return ans
+    
+    def trap2(self, height: List[int]) -> int:
+        n = len(height)
+        left = [0] * n
+        right = [0] * n
+        left[0] = height[0]
+        right[n-1] = height[n-1]
+        for i in range(1, n -1):
+            left[i] = max(height[i], left[i-1])
+        for i in range(n-2, 0, -1):
+            right[i] = max(height[i], right[i+1])
+        water = 0
+        for i in range(1, n-1):
+            if left[i] > height[i] and right[i] > height[i]:
+                water += min(left[i], right[i]) - height[i]
+        return water
 
 
 
