@@ -32,6 +32,19 @@ class Solution:
                 numMap[n+right] = total
             print(numMap)
         return res
+    
+    def longestConsecutive2(self, nums: List[int]) -> int:
+        nums_set = set(nums)
+        result = 0
+        for num in nums_set:
+            if num - 1 not in nums_set:
+                current_num = num
+                current_sequence = 1
+                while current_num + 1 in nums_set:
+                    current_sequence += 1
+                    current_num += 1
+                result = max(current_sequence, result)
+        return result 
 
 
 
