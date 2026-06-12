@@ -44,6 +44,23 @@ class Solution:
                 if openPara[topStack] != c:
                     return False
         return True if len(stack) == 0 else False
+    
+    def isValid2(self, s: str) -> bool:
+        paratheses_map = {
+            '(': ')',
+            '[': ']',
+            '{': '}'
+        }
+        stack = []
+        for c in s:
+            if c in paratheses_map:
+                stack.append(c)
+            else:
+                if stack and paratheses_map[stack[-1]] == c:
+                    stack.pop()
+                else:
+                    return False
+        return not stack
 
 
 
