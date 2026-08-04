@@ -80,6 +80,29 @@ class Solution:
         return int(stack.pop())
 
 
+class Solution2:
+    def calculate(self, s: str) -> int:
+        stack = []
+        curr, sign, res = 0, 1, 0
+        for c in s:
+            if c.isdigit():
+                curr = curr * 10 + int(c)
+            elif c == "+" or c == "-":
+                res += curr * sign
+                sign = -1 if c == "-" else 1
+                curr = 0
+            elif c == "(":
+                stack.append(res)
+                stack.append(sign)
+                res, sign = 0, 1
+            elif c == ")":
+                res += curr * sign
+                res *= stack.pop()
+                res += stack.pop()
+                curr = 0
+        return res + curr * sign 
+
+
 
 
 s = "1 + 1"
